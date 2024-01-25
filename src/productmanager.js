@@ -37,15 +37,19 @@ class ProductManager {
             stock,
         };
         this.products.push(product);
-        this.saveProducts(); 
+        this.saveProducts();
     }
 
-    getProducts() {
+    getProducts(limit) {
+        // corregi el tema del limit aca
+        if (limit) {
+            return this.products.slice(0, limit);
+        }
         return this.products;
     }
 
     getProductById(id) {
-        const product = this.products.find((p) => p.id === id);
+        const product = this.products.find((p) => p.id == id);
         if (!product) {
             console.log("Not found");
             return null;
@@ -59,7 +63,7 @@ class ProductManager {
             throw new Error("Producto no encontrado");
         }
         this.products[productIndex] = { ...this.products[productIndex], ...updatedData };
-        this.saveProducts(); 
+        this.saveProducts();
     }
 
     deleteProduct(id) {
@@ -68,7 +72,7 @@ class ProductManager {
             throw new Error("Producto no encontrado");
         }
         this.products = newProducts;
-        this.saveProducts(); 
+        this.saveProducts();
     }
 }
 
